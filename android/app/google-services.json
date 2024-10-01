@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "957641310431",
+    "project_id": "udemyintermediatefirebase",
+    "storage_bucket": "udemyintermediatefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957641310431:android:e6ab2b08fb87359497296a",
+        "android_client_info": {
+          "package_name": "com.example.firebase_udemyintermediate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdFGS2StUKiJY_WAP4Zh2zzMubaVnjmRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
