@@ -1,17 +1,16 @@
-import 'package:firebase_udemyintermediate/login_controller.dart';
-import 'package:firebase_udemyintermediate/register_controller.dart';
-import 'package:firebase_udemyintermediate/route/routes.dart';
+import 'package:firebase_udemyintermediate/Register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginView extends GetView<LoginController> {
+class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
+    Get.put(RegisterController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
-          'LOGIN',
+          'Register',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -39,19 +38,14 @@ class LoginView extends GetView<LoginController> {
             () {
               return ElevatedButton(
                 onPressed: () {
-                  controller.login(); // Memanggil fungsi login
+                  controller.register(); // Memanggil fungsi register
                 },
                 child: controller.isLoading.isFalse
                     ? Text('Sign In')
                     : Text('Loading...'),
               );
             },
-          ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () => Get.offAllNamed(Routes.REGISTER),
-            child: Text('Register'),
-          ),
+          )
         ],
       ),
     );
