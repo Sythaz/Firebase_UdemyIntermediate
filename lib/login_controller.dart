@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +20,8 @@ class LoginController extends GetxController {
         password: passC.text,
       );
 
+      Get.offAllNamed(Routes.HOME);
       Get.snackbar("Login Success", "Login Success");
-
       isLoading.value = false;
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;

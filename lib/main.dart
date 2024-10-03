@@ -18,7 +18,6 @@ void main() async {
 
   Get.put(LoginController());
   Get.put(HomeController());
-  await FirebaseAuth.instance.signOut(); // Percobaan login sehingga auto logout
   runApp(
     StreamBuilder<User?>(
       stream: auth.authStateChanges(), // Perubahan dapat didapatkan dari fungsi authStateChanges()

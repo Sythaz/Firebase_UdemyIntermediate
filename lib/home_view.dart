@@ -7,8 +7,21 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('LOGIN'),
+        title: Text(
+          'HOME',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blueAccent,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () => controller.logout(),
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Text('No data!'),
