@@ -32,7 +32,9 @@ void main() async {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
             useMaterial3: true,
           ),
-          initialRoute: snapshot.data != null ? Routes.HOME : Routes.LOGIN,
+          initialRoute: snapshot.data != null && snapshot.data!.emailVerified
+              ? Routes.HOME
+              : Routes.LOGIN,
           getPages: Routes.route,
         );
       },

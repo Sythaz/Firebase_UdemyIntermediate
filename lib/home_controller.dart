@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class HomeController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;

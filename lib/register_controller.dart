@@ -11,22 +11,26 @@ class RegisterController extends GetxController {
 
   void register() async {
     if (emailC.text.isNotEmpty || passC.text.isNotEmpty) {
-      if (passC.text.length >= 6) { // Validasi password 6 character
-      // Kode dari dokumentasi
+      if (passC.text.length >= 6) {
+        // Validasi password 6 character
+        // Kode dari dokumentasi
         try {
           isLoading.value = true;
           final userCredential =
+              //Fungsi register akun baru
               await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                //Fungsi register akun baru
             email: emailC.text,
             password: passC.text,
           );
 
+          await userCredential.user?.sendEmailVerification();
+
           isLoading.value = false;
           Get.offAllNamed(Routes.LOGIN);
           Get.snackbar(
-            'Berhasil Register',
-            'Anda berhasil register, silahkan login',
+            'Email Verification',
+            'Silahkan cek email anda untuk verifikasi akun.',
+            duration: Duration(seconds: 5),
           );
         } on FirebaseAuthException catch (e) {
           isLoading.value = false;
