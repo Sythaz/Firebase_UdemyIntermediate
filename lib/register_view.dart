@@ -1,4 +1,4 @@
-import 'package:firebase_udemyintermediate/Register_controller.dart';
+import 'package:firebase_udemyintermediate/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +19,24 @@ class RegisterView extends GetView<RegisterController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
+            controller: controller.nameC,
+            decoration: InputDecoration(
+              labelText: "Name",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            keyboardType: TextInputType.phone,
+            controller: controller.phoneC,
+            decoration: InputDecoration(
+              labelText: "Phone number",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            keyboardType: TextInputType.emailAddress,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: "Email",

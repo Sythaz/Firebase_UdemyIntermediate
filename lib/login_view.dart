@@ -27,6 +27,7 @@ class LoginView extends GetView<LoginController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
+            keyboardType: TextInputType.emailAddress,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: "Email",
