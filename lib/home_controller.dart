@@ -10,7 +10,7 @@ class HomeController extends GetxController {
       Get.offAllNamed(Routes.LOGIN);
       Get.snackbar('Berhasil Logout', 'Anda telah berhasil logout');
     } catch (e) {
-      print('CATCH ERORR: ${e}');
+      print('CATCH ERORR: $e');
       Get.snackbar('Error sign-out', 'Terjadi error saat melakukan sign-out');
     }
   }

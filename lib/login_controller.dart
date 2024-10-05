@@ -6,9 +6,8 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isHidden = false.obs;
-  TextEditingController emailC =
-      TextEditingController(text: "msyafiqaldiansyah@gmail.com");
-  TextEditingController passC = TextEditingController(text: "123456");
+  TextEditingController emailC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
   void login() async {
     // Menggunakan kode dari dokumentasi FlutterFire, serta jangan lupa mematikan email enumeration di Setting Authentication

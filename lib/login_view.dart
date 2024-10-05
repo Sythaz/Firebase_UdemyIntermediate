@@ -33,7 +33,19 @@ class LoginView extends GetView<LoginController> {
               border: OutlineInputBorder(),
             ),
           ),
-          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () => Get.toNamed(Routes.FORGOTPASSWORD),
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(color: Colors.blueAccent),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
           Obx(
             () {
               return ElevatedButton(
@@ -48,7 +60,7 @@ class LoginView extends GetView<LoginController> {
           ),
           SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () => Get.offAllNamed(Routes.REGISTER),
+            onPressed: () => Get.toNamed(Routes.REGISTER),
             child: Text('Register'),
           ),
         ],
