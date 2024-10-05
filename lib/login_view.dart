@@ -2,10 +2,18 @@ import 'package:firebase_udemyintermediate/login_controller.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginView extends GetView<LoginController> {
+  final box = GetStorage(); // Instansiasi
+
   @override
   Widget build(BuildContext context) {
+    if (box.read('rememberme') != null) {
+      // Cek tiap kali ke login page
+      controller.emailC.text = box.read('rememberme')['email'];
+      controller.passC.text = box.read('rememberme')['pass'];
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -26,16 +34,43 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
           SizedBox(height: 20),
-          TextField(
-            controller: controller.passC,
-            decoration: InputDecoration(
-              labelText: "Password",
-              border: OutlineInputBorder(),
+          Obx(
+            () => TextField(
+              obscureText: controller.isHidden.value,
+              controller: controller.passC,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () => controller.isHidden.toggle(),
+                  icon: Icon(controller.isHidden.isTrue
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
+              ),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            //Menambahkan tombol remember me
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Obx(
+                () => Row(
+                  // Membutuhkan row untuk menggabungkan checkbox dan text
+                  children: [
+                    Checkbox(
+                      value: controller.rememberMe.value,
+                      // (_) parameter tidak dibutuhkan karena mengatur melalui controller
+                      onChanged: (_) => controller.rememberMe.toggle(),
+                    ),
+                    Text(
+                      'Remember me',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
               TextButton(
                 onPressed: () => Get.toNamed(Routes.FORGOTPASSWORD),
                 child: Text(

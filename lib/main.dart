@@ -6,6 +6,7 @@ import 'package:firebase_udemyintermediate/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -16,11 +17,14 @@ void main() async {
 
   FirebaseAuth auth = FirebaseAuth.instance; // Memanggil instance FirebaseAuth
 
+  await GetStorage.init(); // Inisialisasi storage local database
+
   Get.put(LoginController());
   Get.put(HomeController());
   runApp(
     StreamBuilder<User?>(
-      stream: auth.authStateChanges(), // Perubahan dapat didapatkan dari fungsi authStateChanges()
+      stream: auth
+          .authStateChanges(), // Perubahan dapat didapatkan dari fungsi authStateChanges()
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SplashScreen();
