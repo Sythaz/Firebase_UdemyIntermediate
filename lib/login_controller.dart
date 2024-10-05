@@ -2,12 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginController extends GetxController {
   RxBool isLoading = false.obs;
-  RxBool isHidden = false.obs;
+  RxBool isHidden = true.obs;
+  RxBool rememberMe = false.obs;
   TextEditingController emailC = TextEditingController();
   TextEditingController passC = TextEditingController();
+
+  final box = GetStorage();
 
   void login() async {
     // Menggunakan kode dari dokumentasi FlutterFire, serta jangan lupa mematikan email enumeration di Setting Authentication
@@ -23,6 +27,19 @@ class LoginController extends GetxController {
         );
 
         if (userCredential.user!.emailVerified) {
+          // Fungsi Remember me
+          if (box.read('rememberme') != null) {
+            // Setiap login data yang pernah ada dihapus
+            await box.remove('rememberme');
+          }
+          if (rememberMe.isTrue) {
+            // Lalu digantikan dengan yg baru
+            await box.write(
+              'rememberme',
+              {'email': emailC.text, 'pass': passC.text},
+            );
+          }
+
           Get.offAllNamed(Routes.HOME);
           Get.snackbar("Login Success", "Login Success");
         } else {
@@ -59,5 +76,7 @@ class LoginController extends GetxController {
     } else {
       Get.snackbar('Something wrong', 'Please fill all the fields');
     }
+    emailC.clear();
+    passC.clear();
   }
 }
