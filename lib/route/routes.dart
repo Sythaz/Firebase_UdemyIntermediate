@@ -3,6 +3,7 @@
 import 'package:firebase_udemyintermediate/forgot_password_view.dart';
 import 'package:firebase_udemyintermediate/home_view.dart';
 import 'package:firebase_udemyintermediate/login_view.dart';
+import 'package:firebase_udemyintermediate/profile_view.dart';
 import 'package:firebase_udemyintermediate/register_view.dart';
 import 'package:firebase_udemyintermediate/splashscreen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -14,6 +15,7 @@ class Routes {
   static const SPLASH = '/splashScreen';
   static const REGISTER = '/registerPage';
   static const FORGOTPASSWORD = '/forgotPasswordPage';
+  static const PROFILE = '/profilePage';
 
   // Gunakan konstanta yang benar dalam GetPage
   static final route = [
@@ -22,7 +24,7 @@ class Routes {
     GetPage(name: SPLASH, page: () => SplashScreen()),
     GetPage(name: REGISTER, page: () => RegisterView()),
     GetPage(name: FORGOTPASSWORD, page: () => ForgotPasswordView()),
-    // GetPage(name: PROFILE, page: () => ProfileView()),
+    GetPage(name: PROFILE, page: () => ProfileView()),
     // GetPage(name: ADD_NOTE, page: () => AddNoteView()),
     // GetPage(name: EDIT_NOTE, page: () => EditNoteView())
   ];
