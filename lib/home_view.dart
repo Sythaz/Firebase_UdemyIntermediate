@@ -1,5 +1,5 @@
+import 'package:firebase_udemyintermediate/add_note_controller.dart';
 import 'package:firebase_udemyintermediate/home_controller.dart';
-import 'package:firebase_udemyintermediate/profile_controller.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
+    Get.put(AddNoteController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,6 +28,10 @@ class HomeView extends GetView<HomeController> {
       ),
       body: Center(
         child: Text('No data!'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.ADDNOTE),
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:firebase_udemyintermediate/add_note_view.dart';
 import 'package:firebase_udemyintermediate/forgot_password_view.dart';
 import 'package:firebase_udemyintermediate/home_view.dart';
 import 'package:firebase_udemyintermediate/login_view.dart';
@@ -16,6 +17,7 @@ class Routes {
   static const REGISTER = '/registerPage';
   static const FORGOTPASSWORD = '/forgotPasswordPage';
   static const PROFILE = '/profilePage';
+  static const ADDNOTE = '/addNotePage';
 
   // Gunakan konstanta yang benar dalam GetPage
   static final route = [
@@ -25,7 +27,7 @@ class Routes {
     GetPage(name: REGISTER, page: () => RegisterView()),
     GetPage(name: FORGOTPASSWORD, page: () => ForgotPasswordView()),
     GetPage(name: PROFILE, page: () => ProfileView()),
-    // GetPage(name: ADD_NOTE, page: () => AddNoteView()),
+    GetPage(name: ADDNOTE, page: () => AddNoteView()),
     // GetPage(name: EDIT_NOTE, page: () => EditNoteView())
   ];
 }
