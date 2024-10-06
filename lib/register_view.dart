@@ -46,6 +46,7 @@ class RegisterView extends GetView<RegisterController> {
           SizedBox(height: 20),
           Obx(
             () => TextField(
+              keyboardType: TextInputType.visiblePassword,
               obscureText: controller.isHidden.value,
               controller: controller.passC,
               decoration: InputDecoration(

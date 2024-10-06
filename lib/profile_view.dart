@@ -69,6 +69,24 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   SizedBox(height: 20),
                   Obx(
+                    () => TextField(
+                      obscureText: controller.isHidden.value,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: controller.passC,
+                      decoration: InputDecoration(
+                        labelText: "New Password",
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          onPressed: () => controller.isHidden.toggle(),
+                          icon: Icon(controller.isHidden.isTrue
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Obx(
                     () => ElevatedButton(
                       onPressed: () => controller.editDataUser(),
                       child: Text(controller.isLoading.isFalse

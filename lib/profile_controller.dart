@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isHidden = true.obs;
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
   TextEditingController phoneC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -37,10 +39,20 @@ class ProfileController extends GetxController {
         // EDIT Tidak menggunakan SET!
         // UPDATE mengganti data lama yang sudah ada
         // Sedangkan SET, data lama akan hilang dan diganti yang baru
-        await firestore.collection('users').doc(auth.currentUser?.uid).update({
+        await firestore.collection('users').doc(auth.currentUser!.uid).update({
           'name': nameC.text,
           'phone': phoneC.text,
         });
+
+        if (passC.text.isNotEmpty) {
+          // Jika password diisi
+          await auth.currentUser!.updatePassword(passC.text); // Update password
+          await auth.signOut(); // Lalu logout dan ke LOGIN
+
+          Get.offAllNamed(Routes.LOGIN);
+          passC.clear();
+        }
+
         isLoading.value = false;
         Get.snackbar('Berhasil', 'Anda telah berhasil mengedit profil');
       } catch (e) {
