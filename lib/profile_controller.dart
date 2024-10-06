@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
+  RxBool isLoading = false.obs;
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
   TextEditingController phoneC = TextEditingController();
@@ -24,6 +25,30 @@ class ProfileController extends GetxController {
       return dataDoc.data();
     } catch (e) {
       Get.snackbar('Something wrong', '$e');
+      // Karena fungsi return yang bukan VOID maka wajib terdapat return di semua kondisi
+      return null;
+    }
+  }
+
+  Future<void> editDataUser() async {
+    if (nameC.text.isNotEmpty && phoneC.text.isNotEmpty) {
+      try {
+        isLoading.value = true;
+        // EDIT Tidak menggunakan SET!
+        // UPDATE mengganti data lama yang sudah ada
+        // Sedangkan SET, data lama akan hilang dan diganti yang baru
+        await firestore.collection('users').doc(auth.currentUser?.uid).update({
+          'name': nameC.text,
+          'phone': phoneC.text,
+        });
+        isLoading.value = false;
+        Get.snackbar('Berhasil', 'Anda telah berhasil mengedit profil');
+      } catch (e) {
+        isLoading.value = false;
+        Get.snackbar('Kesalahan', '$e');
+      }
+    } else {
+      Get.snackbar('Kesalahan', 'Semua field harus diisi');
     }
   }
 

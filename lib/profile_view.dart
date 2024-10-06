@@ -67,6 +67,15 @@ class ProfileView extends GetView<ProfileController> {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  Obx(
+                    () => ElevatedButton(
+                      onPressed: () => controller.editDataUser(),
+                      child: Text(controller.isLoading.isFalse
+                          ? 'SAVE EDIT'
+                          : 'Loading...'),
+                    ),
+                  ),
                 ],
               );
             }
