@@ -1,4 +1,4 @@
-import 'package:firebase_udemyintermediate/forgot_password_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/forgot_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

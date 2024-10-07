@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_udemyintermediate/home_controller.dart';
-import 'package:firebase_udemyintermediate/login_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/home_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/login_controller.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:firebase_udemyintermediate/splashscreen.dart';
 import 'package:flutter/material.dart';

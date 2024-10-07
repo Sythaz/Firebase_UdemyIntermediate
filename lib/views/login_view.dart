@@ -1,4 +1,4 @@
-import 'package:firebase_udemyintermediate/login_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/login_controller.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

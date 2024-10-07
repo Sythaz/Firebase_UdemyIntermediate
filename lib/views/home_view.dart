@@ -1,5 +1,6 @@
-import 'package:firebase_udemyintermediate/add_note_controller.dart';
-import 'package:firebase_udemyintermediate/home_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/add_note_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/edit_note_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/home_controller.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(AddNoteController());
+    Get.put(EditNoteController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,7 +41,7 @@ class HomeView extends GetView<HomeController> {
             // Menggunakan .docs karena .data berbentuk query bukan sebuah list yang bisa dihitung
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
-              var note = snapshot.data?.docs[index];
+              final note = snapshot.data?.docs[index];
               return ListTile(
                 leading: CircleAvatar(
                   child: Text("${index + 1}"),
@@ -51,6 +53,8 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () => controller.deleteNote(note.id),
                   icon: Icon(Icons.delete),
                 ),
+                onTap: () => Get.toNamed(Routes.EDITNOTE,
+                    arguments: {'note': note, 'docId': note.id}),
               );
             },
           );
