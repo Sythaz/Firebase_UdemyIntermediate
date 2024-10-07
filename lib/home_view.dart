@@ -47,7 +47,8 @@ class HomeView extends GetView<HomeController> {
                 title: Text(note!['title']),
                 subtitle: Text(note['desc']),
                 trailing: IconButton(
-                  onPressed: () => {},
+                  // Mengirimkan id dari ListTile untuk dihapus
+                  onPressed: () => controller.deleteNote(note.id),
                   icon: Icon(Icons.delete),
                 ),
               );

@@ -7,6 +7,7 @@ class HomeController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getStreamNotes() {
+    // Aman tidak menggunakan await karena firestore sudah mengatasinya dibalik layar (?)
     try {
       return firestore // Menggunakan RETURN bukan YIELD
           .collection('users')
@@ -18,6 +19,20 @@ class HomeController extends GetxController {
     } catch (e) {
       Get.snackbar('Kesalahan', '$e');
       return Stream.error(e);
+    }
+  }
+
+  void deleteNote(String docId) async {
+    try {
+      await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('notes')
+          // List yang ditekan mengirimkan data id docnya dari HomeView
+          .doc(docId)
+          .delete();
+    } catch (e) {
+      Get.snackbar('Kesalahan', '$e');
     }
   }
 }
