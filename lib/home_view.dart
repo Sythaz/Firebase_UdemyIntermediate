@@ -26,8 +26,34 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      body: Center(
-        child: Text('No data!'),
+      body: StreamBuilder(
+        stream: controller.getStreamNotes(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.data?.docs.length == 0) {
+            return Center(child: Text('No data!'));
+          }
+          return ListView.builder(
+            // Menggunakan .docs karena .data berbentuk query bukan sebuah list yang bisa dihitung
+            itemCount: snapshot.data?.docs.length,
+            itemBuilder: (context, index) {
+              var note = snapshot.data?.docs[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  child: Text("${index + 1}"),
+                ),
+                title: Text(note!['title']),
+                subtitle: Text(note['desc']),
+                trailing: IconButton(
+                  onPressed: () => {},
+                  icon: Icon(Icons.delete),
+                ),
+              );
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.ADDNOTE),
