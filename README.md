@@ -16,6 +16,6 @@ This project is a learning experience focused on developing a Flutter applicatio
 - **Image Upload**: Users can upload and update their profile pictures.
 
 ## Technologies Used
--- **Flutter**: For building cross-platform mobile applications.
--- **Firebase**: For cloud storage and real-time database.
--- **Dart**: Programming language used for Flutter development.
+- **Flutter**: For building cross-platform mobile applications.
+- **Firebase**: For cloud storage and real-time database.
+- **Dart**: Programming language used for Flutter development.
