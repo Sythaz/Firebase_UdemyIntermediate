@@ -1,4 +1,4 @@
-import 'package:firebase_udemyintermediate/register_controller.dart';
+import 'package:firebase_udemyintermediate/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

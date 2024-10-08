@@ -45,5 +45,6 @@ class HomeController extends GetxController {
     } catch (e) {
       Get.snackbar('Kesalahan', '$e');
     }
+    return null;
   }
 }

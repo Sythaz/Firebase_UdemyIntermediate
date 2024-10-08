@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
@@ -62,6 +63,23 @@ class ProfileController extends GetxController {
     } else {
       Get.snackbar('Kesalahan', 'Semua field harus diisi');
     }
+  }
+
+  XFile? image;
+  void pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    // if (pickedFile != null) {
+    //   ...
+    // }
+    image = pickedFile;
+    update();
+  }
+
+  void resetImage() {
+    image = null;
+    update();
   }
 
   // Tombol logout berpindah ke profile page

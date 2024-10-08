@@ -5,8 +5,8 @@ import 'package:firebase_udemyintermediate/views/edit_note_view.dart';
 import 'package:firebase_udemyintermediate/views/forgot_password_view.dart';
 import 'package:firebase_udemyintermediate/views/home_view.dart';
 import 'package:firebase_udemyintermediate/views/login_view.dart';
-import 'package:firebase_udemyintermediate/profile_view.dart';
-import 'package:firebase_udemyintermediate/register_view.dart';
+import 'package:firebase_udemyintermediate/views/profile_view.dart';
+import 'package:firebase_udemyintermediate/views/register_view.dart';
 import 'package:firebase_udemyintermediate/splashscreen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 

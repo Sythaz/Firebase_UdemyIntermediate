@@ -20,6 +20,7 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
         actions: [
+          // Menggunakan stream untuk mengambil data gambar/informasi pribadi user nanti
           StreamBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
               stream: controller.streamProfile(),
               builder: (context, snapshot) {
@@ -29,13 +30,14 @@ class HomeView extends GetView<HomeController> {
                     backgroundColor: Colors.grey[300],
                   );
                 }
+                // CircleAvatar tdk bisa onTap sehingga butuh widget ini
                 return GestureDetector(
                   onTap: () => Get.toNamed(Routes.PROFILE),
                   child: CircleAvatar(
                     maxRadius: 18,
                     backgroundImage: NetworkImage(
-                        "https://ui-avatars.com/api/?name=${snapshot.data!.data()?['name']}.jpg",
-                        scale: 1.0),
+                      "https://ui-avatars.com/api/?name=${snapshot.data!.data()?['name']}.jpg", // tambah .jpg
+                    ),
                   ),
                 );
               }),

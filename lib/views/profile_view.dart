@@ -1,4 +1,6 @@
-import 'package:firebase_udemyintermediate/profile_controller.dart';
+import 'dart:io';
+
+import 'package:firebase_udemyintermediate/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +43,59 @@ class ProfileView extends GetView<ProfileController> {
               return ListView(
                 padding: EdgeInsets.all(20),
                 children: [
+                  Column(
+                    children: [
+                      GetBuilder<ProfileController>(
+                        builder: (contr) {
+                          return snapshot.data?['profile'] != null
+                              ? Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: Colors.grey[400],
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            snapshot.data!['profile']),
+                                      )),
+                                )
+                              : contr.image != null
+                                  ? Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          color: Colors.grey[400],
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: FileImage(
+                                              File(contr.image!.path),
+                                            ),
+                                          )),
+                                    )
+                                  : CircleAvatar(
+                                      maxRadius: 50,
+                                      child: Text('No image'),
+                                    );
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () => controller.pickImage(),
+                              child: Text('Choose image')),
+                          SizedBox(width: 20),
+                          TextButton(
+                            onPressed: () => controller.resetImage(),
+                            child: Text('Remove image'),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
                   TextField(
                     keyboardType: TextInputType.name,
                     controller: controller.nameC,
