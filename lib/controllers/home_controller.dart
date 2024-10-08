@@ -35,4 +35,15 @@ class HomeController extends GetxController {
       Get.snackbar('Kesalahan', '$e');
     }
   }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>>? streamProfile() {
+    try {
+      return firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .snapshots();
+    } catch (e) {
+      Get.snackbar('Kesalahan', '$e');
+    }
+  }
 }

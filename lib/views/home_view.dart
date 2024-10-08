@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_udemyintermediate/controllers/add_note_controller.dart';
 import 'package:firebase_udemyintermediate/controllers/edit_note_controller.dart';
 import 'package:firebase_udemyintermediate/controllers/home_controller.dart';
@@ -19,13 +20,26 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () => Get.toNamed(Routes.PROFILE),
-            icon: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-          ),
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
+              stream: controller.streamProfile(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircleAvatar(
+                    maxRadius: 18,
+                    backgroundColor: Colors.grey[300],
+                  );
+                }
+                return GestureDetector(
+                  onTap: () => Get.toNamed(Routes.PROFILE),
+                  child: CircleAvatar(
+                    maxRadius: 18,
+                    backgroundImage: NetworkImage(
+                        "https://ui-avatars.com/api/?name=${snapshot.data!.data()?['name']}.jpg",
+                        scale: 1.0),
+                  ),
+                );
+              }),
+          SizedBox(width: 10),
         ],
       ),
       body: StreamBuilder(
