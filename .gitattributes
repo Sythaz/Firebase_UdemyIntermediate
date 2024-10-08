@@ -1,0 +1,20 @@
+# Mark Dart as the primary language
+*.dart linguist-language=Dart
+
+# Ignore platform-specific files for Android and iOS
+android/* linguist-vendored
+ios/* linguist-vendored
+
+# Ignore C++, CMake, Swift, and other platform-specific language files
+*.cpp linguist-vendored
+*.h linguist-vendored
+*.c linguist-vendored
+*.swift linguist-vendored
+*.html linguist-vendored
+*.cmake linguist-vendored
+
+# Other files to ignore (e.g., binaries, package files)
+*.lock linguist-vendored
+*.yaml linguist-vendored
+*.gradle linguist-vendored
+*.pbxproj linguist-vendored

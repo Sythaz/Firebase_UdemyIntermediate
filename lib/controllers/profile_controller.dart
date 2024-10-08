@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isHidden = true.obs;
+  RxBool isProfilePic = true.obs;
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
   TextEditingController phoneC = TextEditingController();
@@ -28,6 +29,7 @@ class ProfileController extends GetxController {
               .doc(auth.currentUser?.uid)
               .get(); // Mengambil data dengan tipe data MAP
 
+      isProfilePic.value = true;
       // Karena menggunakan FutureBuilder kita dapat mengirimkan data ke snapshot
       return dataDoc.data();
     } catch (e) {
@@ -110,9 +112,22 @@ class ProfileController extends GetxController {
     }
   }
 
-  void resetImage() {
+  void removeImage() async {
     image = null;
     update();
+
+    try {
+      await firestore.collection('users').doc(auth.currentUser!.uid).update({
+        // Menghapus 'profile' di firebase database
+        'profile': FieldValue.delete(),
+      });
+
+      isProfilePic.value = false;
+      Get.back();
+      update(); // Setelah isProfile menjadi false, butuh update() untuk merefresh GetBuilder
+    } catch (e) {
+      Get.snackbar('Kesalahan', '$e');
+    }
   }
 
   // Tombol logout berpindah ke profile page

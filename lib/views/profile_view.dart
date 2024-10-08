@@ -65,7 +65,10 @@ class ProfileView extends GetView<ProfileController> {
                                       )),
                                 )
                               // Jika tidak ada gambar dipilih akan dicek dari firestorage apakah terdapat gambar
-                              : snapshot.data?['profile'] != null
+                              // Gambar tidak otomatis terganti saat dihapus karena menggunakan snapshot
+                              // Sehingga memerlukan RxBool isProfile untuk merefresh halaman dengan update() dan GetBuilder
+                              : snapshot.data?['profile'] != null &&
+                                      contr.isProfilePic.isTrue
                                   ? Container(
                                       width: 100,
                                       height: 100,
@@ -94,7 +97,20 @@ class ProfileView extends GetView<ProfileController> {
                               child: Text('Choose image')),
                           SizedBox(width: 20),
                           TextButton(
-                            onPressed: () => controller.resetImage(),
+                            onPressed: () {
+                              Get.defaultDialog(
+                                title: 'Remove image',
+                                content: Text('Are you sure?'),
+                                cancel: TextButton(
+                                  onPressed: () => Get.back(),
+                                  child: Text('Cancel'),
+                                ),
+                                confirm: TextButton(
+                                  onPressed: () => controller.removeImage(),
+                                  child: Text('Confirm'),
+                                ),
+                              );
+                            },
                             child: Text('Remove image'),
                           )
                         ],
