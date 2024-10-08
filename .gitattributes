@@ -12,6 +12,7 @@ ios/* linguist-vendored
 *.swift linguist-vendored
 *.html linguist-vendored
 *.cmake linguist-vendored
+CMakeLists.txt linguist-vendored
 
 # Other files to ignore (e.g., binaries, package files)
 *.lock linguist-vendored
