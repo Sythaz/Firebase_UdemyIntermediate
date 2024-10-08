@@ -30,14 +30,19 @@ class HomeView extends GetView<HomeController> {
                     backgroundColor: Colors.grey[300],
                   );
                 }
+
+                // Ambil data pribadi user
+                Map<String, dynamic>? data = snapshot.data?.data();
+
                 // CircleAvatar tdk bisa onTap sehingga butuh widget ini
                 return GestureDetector(
                   onTap: () => Get.toNamed(Routes.PROFILE),
                   child: CircleAvatar(
                     maxRadius: 18,
-                    backgroundImage: NetworkImage(
-                      "https://ui-avatars.com/api/?name=${snapshot.data!.data()?['name']}.jpg", // tambah .jpg
-                    ),
+                    backgroundImage: NetworkImage(data?['profile'] != null
+                            ? data!['profile']
+                            : "https://ui-avatars.com/api/?name=${snapshot.data!.data()?['name']}.jpg" // tambah .jpg
+                        ),
                   ),
                 );
               }),

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_udemyintermediate/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +18,7 @@ class ProfileController extends GetxController {
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
 
   Future<Map<String, dynamic>?> getDataUser() async {
     try {
@@ -65,16 +69,45 @@ class ProfileController extends GetxController {
     }
   }
 
+  // Gambar yang dipilih dan diawasi pada ternary di view menggunakan update()
   XFile? image;
   void pickImage() async {
     final imagePicker = ImagePicker();
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    // if (pickedFile != null) {
-    //   ...
-    // }
-    image = pickedFile;
-    update();
+    if (pickedFile != null) {
+      image = pickedFile;
+      update();
+
+      try {
+        // Proses upload ke Firebase Storage
+        // Jadi, gambar akan terupload saat selesai pemilihan gambar
+        if (image != null) {
+          String extPic = image!.name
+              .split(".")
+              .last; // Mengambil kata dibelakang titik (tipe file)
+          await storage
+              .ref(auth.currentUser!.uid)
+              .child('profile.$extPic')
+              // File() berguna untuk mengubah path gambar menjadi File
+              .putFile(File(image!.path));
+
+          // Mengambil URL profile pic dari Firebase Storage
+          String profileUrl = await storage
+              .ref(auth.currentUser!.uid)
+              .child('profile.$extPic')
+              .getDownloadURL();
+
+          // Setelah mendapatkan URL, kirim URL ke Firebase Database
+          await firestore
+              .collection('users')
+              .doc(auth.currentUser!.uid)
+              .update({'profile': profileUrl});
+        }
+      } catch (e) {
+        Get.snackbar('Kesalahan', '$e');
+      }
+    }
   }
 
   void resetImage() {

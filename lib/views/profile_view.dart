@@ -46,8 +46,12 @@ class ProfileView extends GetView<ProfileController> {
                   Column(
                     children: [
                       GetBuilder<ProfileController>(
+                        // contr; merujuk ke ProfileController
                         builder: (contr) {
-                          return snapshot.data?['profile'] != null
+                          // Pada saat gambar selesai dipilih, kita ambil gambar dari lokal dahulu
+                          // Karena penggantian gambar dari firestorage memerlukan refresh page
+                          // Untuk seolah gambar sudah terupload dan tersimpan, pada kenyataannya baru dilakukan proses uploadnya
+                          return contr.image != null
                               ? Container(
                                   width: 100,
                                   height: 100,
@@ -55,11 +59,13 @@ class ProfileView extends GetView<ProfileController> {
                                       borderRadius: BorderRadius.circular(100),
                                       color: Colors.grey[400],
                                       image: DecorationImage(
-                                        image: NetworkImage(
-                                            snapshot.data!['profile']),
+                                        fit: BoxFit.cover,
+                                        image:
+                                            FileImage(File(contr.image!.path)),
                                       )),
                                 )
-                              : contr.image != null
+                              // Jika tidak ada gambar dipilih akan dicek dari firestorage apakah terdapat gambar
+                              : snapshot.data?['profile'] != null
                                   ? Container(
                                       width: 100,
                                       height: 100,
@@ -69,11 +75,11 @@ class ProfileView extends GetView<ProfileController> {
                                           color: Colors.grey[400],
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: FileImage(
-                                              File(contr.image!.path),
-                                            ),
+                                            image: NetworkImage(
+                                                snapshot.data?['profile']),
                                           )),
                                     )
+                                  // Jika tidak ada gambar yang terpilih maupun di firestorage, maka gunakan CircleAvatar
                                   : CircleAvatar(
                                       maxRadius: 50,
                                       child: Text('No image'),
